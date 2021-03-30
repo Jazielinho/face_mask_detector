@@ -1,0 +1,9 @@
+data/val
+
+data/train
+
+training/.ipynb_checkpoints
+
+.idea
+
+.vscode
