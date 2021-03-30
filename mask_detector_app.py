@@ -42,7 +42,7 @@ def prepara_imagen_array(img: np.ndarray) -> Tuple[List, List]:
     if len(face_crop) > 0:
         for face_ in face_crop:
             img_ = cv2.resize(face_, config_tr.SHAPE[:2])
-            img_ = np.reshape(img_, (1, *config_tr.SHAPE))
+            img_ = np.reshape(img_, (1, *config_tr.SHAPE, 3))
             img_ = tf.keras.applications.mobilenet.preprocess_input(img_)
             face_to_predict.append(img_)
     return face_to_predict, list_ubications
@@ -81,6 +81,10 @@ class VideoTransformer(VideoTransformerBase):
 
 
 st.title('Detección automática de máscaras')
+
+st.write("Esta aplicación identifica en tiempo real si tiene o no máscara.")
+st.write("Para más información: ")
+
 
 webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
 
