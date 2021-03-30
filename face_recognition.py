@@ -19,8 +19,6 @@ def detecta_rostros(frame: np.array) -> Tuple[List, List]:
         frame_gray,
         scaleFactor=1.3,
         minNeighbors=5,
-        # minSize=(30, 30),
-        # flags=cv2.CASCADE_SCALE_IMAGE
     )
 
     if len(faces) > 0:
@@ -37,19 +35,14 @@ if __name__ == '__main__':
     from PIL import Image
     from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
-    video_capture = cv2.VideoCapture(0)
-    ret, frame = video_capture.read()
+    # video_capture = cv2.VideoCapture(0)
+    # ret, frame = video_capture.read()
 
-    # img_path = 'C:/Users/jahaz/OneDrive/Escritorio/download.png'
-    # img_path = 'C:/Users/jahaz/OneDrive/Escritorio/foto.JPG'
-    # img_path = 'C:/Users/jahaz/OneDrive/Escritorio/BEAUTIFUL-FACES_3249636b.jpg'
-    # img_path = 'C:/Users/jahaz/OneDrive/Escritorio/descubre-como-tener-un-rostro-10-foto-freepik.jpeg'
+    img_path = 'C:/Users/jahaz/OneDrive/Escritorio/3JSSSYN2JJCETPE6P63GS27IIU.jpg'
 
-    # image = img_to_array(load_img(img_path)).astype(np.uint8)
-    #
-    image = frame
+    image = img_to_array(load_img(img_path)).astype(np.uint8)
 
-    face_crop = detecta_rostros(image, shape=(224, 224, 3))
+    face_crop, list_ubications = detecta_rostros(image)
 
     for n, face_rect in enumerate(face_crop):
         Image.fromarray(face_rect.astype(np.uint8), 'RGB').show()

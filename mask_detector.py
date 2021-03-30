@@ -11,7 +11,6 @@ from training import config_tr
 
 from typing import List, Tuple
 
-import config
 
 model = None
 

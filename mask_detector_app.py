@@ -34,6 +34,9 @@ def load_model() -> tf.keras.Model:
     return model
 
 
+model = load_model()
+
+
 def prepara_imagen_array(img: np.ndarray) -> Tuple[List, List]:
     ''' De la imagen capturara, extrae los rostros y preprocesa '''
     face_crop, list_ubications = face_recognition.detecta_rostros(frame=img)
