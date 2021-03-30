@@ -5,13 +5,14 @@ Autor: Jazielinho
 
 import face_recognition
 import numpy as np
-import cv2
 import tensorflow as tf
 from training import config_tr
+import streamlit as st
+import cv2
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
 from typing import List, Tuple
 
-import config
 
 model = None
 
@@ -62,9 +63,9 @@ def get_predictions(face_to_predict: List) -> List:
     return list_clases
 
 
-def main():
-    while True:
-        sucess, img = cap.read()
+class VideoTransformer(VideoTransformerBase):
+    def transform(self, frame):
+        img = frame.to_ndarray(format="bgr24")
         face_to_predict, list_ubications = prepara_imagen_array(img=img)
         list_clases = get_predictions(face_to_predict=face_to_predict)
 
@@ -72,17 +73,14 @@ def main():
 
             for enum in range(len(list_clases)):
                 x, y, w, h = list_ubications[enum]
-                cv2.rectangle(img, (x, y), (x + w, y + h), color_dict[list_clases[enum]], 2)
-                cv2.rectangle(img, (x, y - 40), (x+w, y), color_dict[list_clases[enum]], -2)
-                cv2.putText(img, labels_dict[list_clases[enum]], (x, y - 10), cv2.FONT_HERSHEY_COMPLEX, 0.75,
-                            (255, 255, 255), 1, cv2.LINE_AA)
-
-        cv2.imshow("Result", img)
-        k = cv2.waitKey(1)
-        if k == ord('q'):
-            break
+                img = cv2.rectangle(img, (x, y), (x + w, y + h), color_dict[list_clases[enum]], 2)
+                img = cv2.rectangle(img, (x, y - 40), (x+w, y), color_dict[list_clases[enum]], -2)
+                img = cv2.putText(img, labels_dict[list_clases[enum]], (x, y - 10), cv2.FONT_HERSHEY_COMPLEX, 0.75,
+                                  (255, 255, 255), 1, cv2.LINE_AA)
+        return img
 
 
-if __name__ == '__main__':
-    main()
+st.title('Detección automática de máscaras')
+
+webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
 
