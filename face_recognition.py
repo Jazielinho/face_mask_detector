@@ -38,7 +38,7 @@ if __name__ == '__main__':
     # video_capture = cv2.VideoCapture(0)
     # ret, frame = video_capture.read()
 
-    img_path = 'C:/Users/jahaz/OneDrive/Escritorio/3JSSSYN2JJCETPE6P63GS27IIU.jpg'
+    img_path = 'C:/Users/jahaz/OneDrive/Escritorio/Rostros-reveladores...-¿Qué-dice-el-tuyo.jpg'
 
     image = img_to_array(load_img(img_path)).astype(np.uint8)
 
