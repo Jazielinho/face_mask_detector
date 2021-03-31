@@ -17,7 +17,7 @@ def detecta_rostros(frame: np.array) -> Tuple[List, List]:
 
     faces = faceCascade.detectMultiScale(
         frame_gray,
-        scaleFactor=1.3,
+        scaleFactor=1.1,
         minNeighbors=5,
     )
 
