@@ -52,21 +52,20 @@ def prepara_imagen_array(img: np.ndarray) -> Tuple[List, List]:
 
 
 def get_predictions(face_to_predict: List) -> List:
+    # Calcula la probabilidad y clase (0 o 1) para una lista de rostros identificados
     global model
     model = load_model()
 
     list_clases = []
     for face_ in face_to_predict:
         prob = model.predict(face_).ravel()
-        if prob > 0.5:
-            list_clases.append(0)
-        else:
-            list_clases.append(1)
-
+        list_clases.append(int(prob < 0.5))
     return list_clases
 
 
+# ==================================================================================================================
 class VideoTransformer(VideoTransformerBase):
+    # Clase para predecir máscaras de vídeos
     def transform(self, frame):
         img = frame.to_ndarray(format="bgr24")
         face_to_predict, list_ubications = prepara_imagen_array(img=img)
@@ -83,6 +82,7 @@ class VideoTransformer(VideoTransformerBase):
         return img
 
 
+# ==================================================================================================================
 st.title('Detección automática de máscaras')
 
 st.write("Esta aplicación identifica en tiempo real si tiene o no máscara.")
@@ -90,4 +90,3 @@ st.write("Para más información: ")
 
 
 webrtc_streamer(key="example", video_transformer_factory=VideoTransformer)
-
