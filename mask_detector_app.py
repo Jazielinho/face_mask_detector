@@ -16,8 +16,6 @@ from typing import List, Tuple
 
 model = None
 
-cap = cv2.VideoCapture(0)
-
 color_dict = {1: (0, 255, 0), 0: (0, 0, 255)}
 labels_dict = {0: 'no mascara', 1: 'mascara'}
 
