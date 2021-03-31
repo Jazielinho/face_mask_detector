@@ -8,7 +8,6 @@ import numpy as np
 import tensorflow as tf
 from training import config_tr
 import streamlit as st
-from PIL import Image
 import cv2
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
