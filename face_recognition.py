@@ -12,7 +12,7 @@ faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontal
 
 
 def detecta_rostros(frame: np.array) -> Tuple[List, List]:
-    ''' Retorna '''
+    ''' Retorna lista con imágenes de rostros y su ubicación en la imagen original '''
     frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     faces = faceCascade.detectMultiScale(
